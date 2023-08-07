@@ -119,7 +119,7 @@ app.post("/contracts/gas-usage", async (req, res) => {
     const cache = await getRawResult(id);
     if (cache) {
       console.log("[cache hit] " + id);
-      res.contentType("json").send(cache);
+      res.contentType("json").header("X-Cache-Status", "HIT").send(cache);
       return;
     }
     console.log("[cache miss] " + id);
@@ -174,7 +174,7 @@ app.post("/contracts/total-txs", async (req, res) => {
     const cache = await getRawResult(id);
     if (cache) {
       console.log("[cache hit] " + id);
-      res.contentType("json").send(cache);
+      res.contentType("json").header("X-Cache-Status", "HIT").send(cache);
       return;
     }
     console.log("[cache miss] " + id);
@@ -229,7 +229,7 @@ app.post("/contracts/total-unique-users", async (req, res) => {
     const cache = await getRawResult(id);
     if (cache) {
       console.log("[cache hit] " + id);
-      res.contentType("json").send(cache);
+      res.contentType("json").header("X-Cache-Status", "HIT").send(cache);
       return;
     }
     console.log("[cache miss] " + id);
