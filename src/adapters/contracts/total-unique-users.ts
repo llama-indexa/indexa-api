@@ -77,15 +77,12 @@ export const getTotalUniqueUsersSingleChain = async (
   const end = formatDate(new Date(endTimestamp * 1000));
 
   const query = sql`
-    SELECT
-      COUNT(bt.from_address) AS total_unique_users
-    FROM
-      ${chain}.base_transactions bt
-    WHERE
-      bt.to_address IN (${addresses.map((address) => `'${address}'`).join(", ")})
-      AND bt.block_timestamp BETWEEN '${start}' AND '${end}'
-    GROUP BY 
-      bt.from_address
+    SELECT COUNT(from_address) AS total_unique_users
+    FROM (SELECT bt.from_address
+        FROM ${chain}.base_transactions bt
+        WHERE bt.to_address IN (${addresses.map((address) => `'${address}'`).join(", ")})
+          AND bt.block_timestamp BETWEEN '${start}' AND '${end}'
+        GROUP BY bt.from_address)
     ;
   `;
 
