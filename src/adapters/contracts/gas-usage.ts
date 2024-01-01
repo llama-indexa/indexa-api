@@ -90,10 +90,10 @@ export const getTotalGasUsageSingleChain = async (
   `;
 
   const resultSet = await client.query({ query, format: "JSONEachRow" });
-  const dataset = await resultSet.json<{ total_gas_usage: number }[]>();
+  const dataset = await resultSet.json<{ total_gas_usage: string }[]>();
   return {
     chain,
-    totalGasUsage: dataset[0]?.total_gas_usage ?? 0,
+    totalGasUsage: Number(dataset[0]?.total_gas_usage ?? "0"),
     startTimestamp,
     endTimestamp,
   };

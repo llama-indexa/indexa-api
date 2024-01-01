@@ -58,7 +58,8 @@ export type Result = {
 };
 
 /**
- * Get total unique users for a list of contracts on a chain within a time range.
+ * Get total unique users who have interacted with the contract directly, given a list of contracts on a chain within
+ * a time range.
  *
  * @param params - Params object with chain, addresses, startTimestamp, and endTimestamp
  * @param client - ClickHouse client (optional)
@@ -87,10 +88,10 @@ export const getTotalUniqueUsersSingleChain = async (
   `;
 
   const resultSet = await client.query({ query, format: "JSONEachRow" });
-  const dataset = await resultSet.json<{ total_unique_users: number }[]>();
+  const dataset = await resultSet.json<{ total_unique_users: string }[]>();
   return {
     chain,
-    totalUniqueUsers: dataset[0]?.total_unique_users ?? 0,
+    totalUniqueUsers: Number(dataset[0]?.total_unique_users ?? "0"),
     startTimestamp,
     endTimestamp,
   };

@@ -58,7 +58,7 @@ export type Result = {
 };
 
 /**
- * Get total unique users for a list of contracts on a chain within a time range.
+ * Get total transaction count for a list of contracts on a chain within a time range.
  *
  * @param params - Params object with chain, addresses, startTimestamp, and endTimestamp
  * @param client - ClickHouse client (optional)
@@ -88,10 +88,10 @@ export const getTotalTxsSingleChain = async (
   `;
 
   const resultSet = await client.query({ query, format: "JSONEachRow" });
-  const dataset = await resultSet.json<{ total_txs: number }[]>();
+  const dataset = await resultSet.json<{ total_txs: string }[]>();
   return {
     chain,
-    totalTxs: dataset[0]?.total_txs ?? 0,
+    totalTxs: Number(dataset[0]?.total_txs ?? "0"),
     startTimestamp,
     endTimestamp,
   };
