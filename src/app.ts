@@ -44,6 +44,9 @@ const clickhouse = createClient({
   host: process.env.CLICKHOUSE_HOST,
   username: process.env.CLICKHOUSE_USERNAME,
   password: process.env.CLICKHOUSE_PASSWORD,
+  clickhouse_settings: {
+    enable_http_compression: 0,
+  },
 });
 
 interface QueryJob {
