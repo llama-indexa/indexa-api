@@ -70,7 +70,9 @@ export const getTotalUniqueUsersSingleChain = async (
     host: process.env.CLICKHOUSE_HOST,
     username: process.env.CLICKHOUSE_USERNAME,
     password: process.env.CLICKHOUSE_PASSWORD,
-    compression: { request: false, response: false },
+    clickhouse_settings: {
+      enable_http_compression: 1,
+    },
   }),
 ): Promise<Result> => {
   const { chain, addresses, startTimestamp, endTimestamp } = params;
@@ -94,7 +96,7 @@ export const getTotalUniqueUsersSingleChain = async (
   const dataset = await resultSet.json<{ total_unique_users: number }[]>();
   return {
     chain,
-    totalUniqueUsers: dataset[0].total_unique_users,
+    totalUniqueUsers: dataset[0]?.total_unique_users ?? 0,
     startTimestamp,
     endTimestamp,
   };
@@ -106,7 +108,9 @@ export const handleTotalUniqueUsers = async (
     host: process.env.CLICKHOUSE_HOST,
     username: process.env.CLICKHOUSE_USERNAME,
     password: process.env.CLICKHOUSE_PASSWORD,
-    compression: { request: false, response: false },
+    clickhouse_settings: {
+      enable_http_compression: 1,
+    },
   }),
 ): Promise<ResponsePayload> => {
   const { contracts, startTimestamp, endTimestamp } = req;
