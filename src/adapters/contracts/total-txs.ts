@@ -61,7 +61,7 @@ export type Result = {
  * Get total transaction count for a list of contracts on a chain within a time range.
  *
  * @param params - Params object with chain, addresses, startTimestamp, and endTimestamp
- * @param client - ClickHouse client (optional)
+ * @param client - ClickHouse client
  * @returns
  */
 export const getTotalTxsSingleChain = async (params: Params, client: ClickHouseClient): Promise<Result> => {

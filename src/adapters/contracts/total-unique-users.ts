@@ -62,7 +62,7 @@ export type Result = {
  * a time range.
  *
  * @param params - Params object with chain, addresses, startTimestamp, and endTimestamp
- * @param client - ClickHouse client (optional)
+ * @param client - ClickHouse client
  * @returns
  */
 export const getTotalUniqueUsersSingleChain = async (params: Params, client: ClickHouseClient): Promise<Result> => {
