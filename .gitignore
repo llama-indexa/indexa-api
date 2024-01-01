@@ -2,5 +2,6 @@ node_modules
 .env
 playground.ts
 playground
+scratch.ts
+scratch
 dist
-.vscode
