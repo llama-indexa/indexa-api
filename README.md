@@ -14,7 +14,7 @@
 
 This is a RESTful API server that queries and caches blockchain data from predefined queries. The underlying data warehouse service is the Indexa V2 clickhouse database.
 
-The server caches queries aggressively to reduce the load on the database. The cache is currently invalidated every 24 hours. If the request param has a time span, the starting/ending time will be rounded to the previous hour. The response will contain the rounded timestamps. All timestamps are in Unix seconds, **not** milliseconds.
+The server caches queries aggressively to reduce the load on the database. The cache is currently invalidated every 24 hours. If the request param has a time span, the starting/ending time will be rounded to the previous half-hour marks. The response will contain the rounded timestamps. All timestamps are in Unix seconds, **not** milliseconds.
 
 The concurrency of the database queries are managed by a Bullmq job queue.
 
