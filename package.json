@@ -1,16 +1,14 @@
 {
   "name": "indexa-api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
     "build": "tsc",
     "start": "pm2 start dist/app.js",
-    "dev": "tsx --watch src/app.ts"
+    "dev": "tsx --watch src/app.ts",
+    "reload": "tsc && pm2 reload dist/app.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "strobie <0xstrobe@protonmail.com>",
   "dependencies": {
     "@clickhouse/client": "^0.1.1",
     "bullmq": "^4.17.0",
