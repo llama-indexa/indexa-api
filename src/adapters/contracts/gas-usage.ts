@@ -72,6 +72,7 @@ export const getTotalGasUsageSingleChain = async (
     host: process.env.CLICKHOUSE_HOST,
     username: process.env.CLICKHOUSE_USERNAME,
     password: process.env.CLICKHOUSE_PASSWORD,
+    compression: { request: false, response: false },
   }),
 ): Promise<Result> => {
   const { chain, addresses, startTimestamp, endTimestamp } = params;
@@ -105,6 +106,7 @@ export const handleGasUsage = async (
     host: process.env.CLICKHOUSE_HOST,
     username: process.env.CLICKHOUSE_USERNAME,
     password: process.env.CLICKHOUSE_PASSWORD,
+    compression: { request: false, response: false },
   }),
 ): Promise<ResponsePayload> => {
   const { contracts, startTimestamp, endTimestamp } = req;
