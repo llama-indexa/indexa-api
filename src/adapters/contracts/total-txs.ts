@@ -1,4 +1,4 @@
-import { createClient } from "@clickhouse/client";
+import { ClickHouseClient } from "@clickhouse/client";
 import { Hex } from "viem";
 import { sql } from "../../utils/db";
 import { SupportedChain, isSupportedChain } from "../../types";
@@ -64,14 +64,7 @@ export type Result = {
  * @param client - ClickHouse client (optional)
  * @returns
  */
-export const getTotalTxsSingleChain = async (
-  params: Params,
-  client = createClient({
-    host: process.env.CLICKHOUSE_HOST,
-    username: process.env.CLICKHOUSE_USERNAME,
-    password: process.env.CLICKHOUSE_PASSWORD,
-  }),
-): Promise<Result> => {
+export const getTotalTxsSingleChain = async (params: Params, client: ClickHouseClient): Promise<Result> => {
   const { chain, addresses, startTimestamp, endTimestamp } = params;
   const start = formatDate(new Date(startTimestamp * 1000));
   const end = formatDate(new Date(endTimestamp * 1000));
@@ -97,14 +90,7 @@ export const getTotalTxsSingleChain = async (
   };
 };
 
-export const handleTotalTxs = async (
-  req: RequestPayload,
-  client = createClient({
-    host: process.env.CLICKHOUSE_HOST,
-    username: process.env.CLICKHOUSE_USERNAME,
-    password: process.env.CLICKHOUSE_PASSWORD,
-  }),
-): Promise<ResponsePayload> => {
+export const handleTotalTxs = async (req: RequestPayload, client: ClickHouseClient): Promise<ResponsePayload> => {
   const { contracts, startTimestamp, endTimestamp } = req;
   const supportedContracts = contracts.filter((contract) => isSupportedChain(contract.chain));
   const contractDicts = supportedContracts.reduce<Record<SupportedChain, Hex[]>>((acc, contract) => {
